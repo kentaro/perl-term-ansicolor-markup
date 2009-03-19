@@ -1,5 +1,8 @@
 Revision history for Perl extension Term::ANSIColor::Markup
 
+0.06    Fri Mar 21 00:19:03 2009
+        - removed dependency on Term::ANSIColor.
+
 0.05    Sun Mar  2 23:37:02 2009
         - renamed from Term::ANSIColor::Tag to Term::ANSIColor::Markup
 

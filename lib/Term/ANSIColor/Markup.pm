@@ -5,7 +5,7 @@ use warnings;
 use Term::ANSIColor::Markup::Parser;
 use base qw(Class::Accessor::Lvalue::Fast);
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 __PACKAGE__->mk_accessors(qw(parser text));
 
@@ -58,6 +58,10 @@ Term::ANSIColor::Markup - Colorize tagged strings for screen output
 Term::ANSIColor::Markup provides a simple and friendly way to colorize
 screen output; You can do it using HTML-like tags.
 
+You can use the same names for tag names as ones L<Term::ANSIColor>
+provides. See the documentation of Term::ANSIColor to get to know what
+names you can use.
+
 =head1 METHODS
 
 =head2 new ()
@@ -79,7 +83,8 @@ Creates and returns a new Term::ANSIColor::Markup object.
 Parses given C<$text>. If start tag and end tag aren't correspondent
 with each other, this method croaks immediately.
 
-Note that "<" and ">" must be escaped into "&lt;" and "&gt;".
+Note that "<" and ">" which are not part of tags must be escaped into
+"&lt;" and "&gt;".
 
 =back
 
@@ -105,7 +110,7 @@ Returns parsed text in just one way.
 
 =head1 REPOSITORY
 
-http://github.com/kentaro/perl-term-ansicolor-tag/tree/master
+https://github.com/kentaro/perl-term-ansicolor-markup/tree
 
 =head1 SEE ALSO
 

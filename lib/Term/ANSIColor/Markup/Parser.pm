@@ -7,9 +7,28 @@ use base qw(
     Class::Accessor::Lvalue::Fast
 );
 
-use Term::ANSIColor;
+# copied from Term::ANSIColor
+our %TAGS = (
+    clear      => 0,
+    reset      => 0,
+    bold       => 1,
+    dark       => 2,
+    faint      => 2,
+    underline  => 4,
+    underscore => 4,
+    blink      => 5,
+    reverse    => 7,
+    concealed  => 8,
 
-use constant RESET => "\e[0m";
+    black      => 30,   on_black   => 40,
+    red        => 31,   on_red     => 41,
+    green      => 32,   on_green   => 42,
+    yellow     => 33,   on_yellow  => 43,
+    blue       => 34,   on_blue    => 44,
+    magenta    => 35,   on_magenta => 45,
+    cyan       => 36,   on_cyan    => 46,
+    white      => 37,   on_white   => 47,
+);
 
 __PACKAGE__->mk_accessors(qw(result stack));
 
@@ -42,7 +61,7 @@ sub end {
     if (my $color = $self->get_escape_sequence($tagname)) {
         my $top = pop @{$self->stack};
         croak "Invalid end tag was found: $text" if $top ne $tagname;
-        $self->result .= RESET;
+        $self->result .= $self->get_escape_sequence('reset');
         if (scalar @{$self->stack}) {
             $self->result .= $self->get_escape_sequence($self->stack->[-1]);
         }
@@ -55,10 +74,9 @@ sub end {
 sub get_escape_sequence {
     my ($self, $name) = @_;
     my $escape_sequence  = '';
-    for my $key (keys %Term::ANSIColor::ATTRIBUTES) {
+    for my $key (keys %TAGS) {
         if (lc $name eq lc $key) {
-            $escape_sequence = sprintf "\e[%dm",
-                                       $Term::ANSIColor::ATTRIBUTES{$key};
+            $escape_sequence = sprintf "\e[%dm", $TAGS{$key};
             last;
         }
     }

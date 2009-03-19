@@ -5,7 +5,6 @@ author   'Kentaro Kuribayashi, <kentarok@cpan.org>',
 license  'MIT';
 all_from 'lib/Term/ANSIColor/Markup.pm';
 
-requires 'Term::ANSIColor';
 requires 'Class::Accessor::Lvalue::Fast';
 requires 'HTML::Parser';
 
